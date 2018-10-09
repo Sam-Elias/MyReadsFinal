@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 
-class BooksPage extends React.Component {
+class BooksPage extends Component {
     render() {
 
         return (
