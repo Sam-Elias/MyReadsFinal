@@ -13,7 +13,9 @@ class BooksPage extends Component {
             </div>
 
             <div className="list-books-content">
-              <BookShelf />
+              <BookShelf shelfTitle="Currently Reading" />
+              <BookShelf shelfTitle="Want to Read" />
+              <BookShelf shelfTitle="Read" />
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
