@@ -10,8 +10,15 @@ class BookShelf extends Component {
         <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            <Book />
-            <Book />
+          {this.props.books.map( 
+            book => <Book
+                      cover= {`url(${book.imageLinks.thumbnail})`}
+                      title= {book.title}
+                      author= {book.authors}
+                      shelf= {book.shelf}
+                      key= {book.id}
+                    />)}
+            
           </ol>
         </div>
       </div>

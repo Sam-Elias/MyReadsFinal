@@ -27,9 +27,9 @@ class BooksApp extends Component {
       {console.log(this.state.books)}
         {this.state.showSearchPage ? (
           
-          <SearchPage  />
+          <SearchPage />
         ) : (
-          <BooksPage />
+          <BooksPage books={this.state.books}/>
           
         )}
       </div>
