@@ -1,22 +1,24 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Book from '../components/Book'
 
 class SearchPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      books: [],
-      query: ''
+      searchBooks: [],
     }
    
   }
 
   inputHandler = (query) => {
     console.log(query.target.value)
-    this.setState({query: query.target.value})
+    this.props.getSearchBooks(query.target.value);
+    this.setState({ searchBooks: this.props.searchBooks })
   }
+
 
   render() {
     return (
@@ -36,7 +38,13 @@ class SearchPage extends Component {
             </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {this.props.searchBooks.map( book => <Book
+                                   book= {book}
+                                   shelfHandler= {this.props.shelfHandler}
+                                   key= {book.id}
+                    />)}
+          </ol>
         </div>
       </div>
         )

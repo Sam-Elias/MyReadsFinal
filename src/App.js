@@ -12,7 +12,7 @@ class BooksApp extends Component {
     this.state = {
       //ARRAY OF BOOK OBJECTS
       books: [],
-      showSearchPage: false
+      searchBooks: [],
     }
    
   }
@@ -45,6 +45,11 @@ class BooksApp extends Component {
     console.log(newBooksArray)
     this.setState({books: newBooksArray})
   }
+
+  getSearchBooks = (query) => {
+    BooksAPI.search(query).then(books => this.setState({ searchBooks: books }))
+  }
+
   render() {
     return (
       <div className="app">
@@ -60,7 +65,9 @@ class BooksApp extends Component {
           <Route
             path= "/search"
             render= {() => (
-              <SearchPage />
+              <SearchPage
+                getSearchBooks= {this.getSearchBooks}
+                searchBooks= {this.state.searchBooks} />
             )}/>
       </div>
     )
