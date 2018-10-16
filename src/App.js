@@ -37,6 +37,7 @@ class BooksApp extends Component {
       if (book.title === bookChanging.title) {
         //CHANGE THE SHELF PROPERTY
         book.shelf = newShelf
+        BooksAPI.update(book, newShelf)
         }
       return book
     })
