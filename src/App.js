@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BooksPage from './pages/Books'
-import SearchPage from './pages/Search';
+import SearchPage from './pages/Search'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends Component {
   constructor(props) {
@@ -46,17 +47,19 @@ class BooksApp extends Component {
   render() {
     return (
       <div className="app">
-      {console.log(this.state.books)} {this.test()}
-        {this.state.showSearchPage ? (
-          
-          <SearchPage />
-        ) : (
-          <BooksPage 
-            books={this.state.books}
-            shelfHandler= {this.shelfHandler}
-          />
-          
-        )}
+          <Route 
+            path= "/pages/Books"
+            render= {() => (
+              <BooksPage 
+                books={this.state.books}
+                shelfHandler= {this.shelfHandler}
+              />
+            )}/>
+          <Route
+            path= "/pages/Search"
+            render= {() => (
+              <SearchPage />
+            )}/>
       </div>
     )
   }
