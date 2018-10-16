@@ -48,7 +48,8 @@ class BooksApp extends Component {
     return (
       <div className="app">
           <Route 
-            path= "/pages/Books"
+            exact
+            path= "/"
             render= {() => (
               <BooksPage 
                 books={this.state.books}
@@ -56,7 +57,7 @@ class BooksApp extends Component {
               />
             )}/>
           <Route
-            path= "/pages/Search"
+            path= "/search"
             render= {() => (
               <SearchPage />
             )}/>
