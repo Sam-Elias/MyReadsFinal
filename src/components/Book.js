@@ -13,7 +13,8 @@ class Book extends Component {
   handleChange(el) {
     this.setState({ shelf: el.target.value });
     console.log(this.props.book.title)
-    this.props.shelfHandler(this.props.book.title, el.target.value);
+    if(!this.props.pushSearchBooks){ this.props.shelfHandler(this.props.book, el.target.value) }
+    if(this.props.pushSearchBooks){ this.props.pushSearchBooks(this.props.book, el.target.value) }
   }
 
   render() {

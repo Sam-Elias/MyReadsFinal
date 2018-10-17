@@ -23,29 +23,36 @@ class BooksApp extends Component {
   test = () => {
     this.state.books.map( book => console.log(book.title)) 
   }
-
-  shelfHandler = (title, newShelf) => {
-    console.log(title + "  to  " + newShelf )
-    const bookChanging= this.state.books.find(book => book.title === title);
-    if (bookChanging) {
-      const newBooksArray = this.state.books.map(book => {
-        if (book.title === bookChanging.title) {
-          book.shelf = newShelf
-          BooksAPI.update(book, newShelf)
-          }
-        return book
-      })
-      this.setState({books: newBooksArray})
-    } else {
-      console.log('else')
-    }
+  bookFinder = (book) => {
+    this.state.books.find(books => books.id === book.id)
   }
+  shelfHandler = (book, newShelf) => {
+    console.log(book + "  to  " + newShelf )
+    const bookFound= this.state.books.find(books => books.id === book.id);
+    if (bookFound) {
+      if (newShelf == 'none') {
+        const newBooksArray = this.state.books.filter(books => books.id !== bookFound.id)
+        this.setState({ books: newBooksArray })
+      } else {
+        const newBooksArray = this.state.books.map(book => {
+          if (book.id === bookFound.id) {
+            book.shelf = newShelf
+            BooksAPI.update(book, newShelf)
+            }
+            return book
+          })
+          console.log(newBooksArray)
+          this.setState({books: newBooksArray})
+        }}}
 
-  bookPageAdder = (book) => {
-    console.log(book)
+  bookAdder = (book) => {
+    const bookAdding= this.state.books.find(books => books.id === book.id)
+    if (!bookAdding) {this.setState({books: this.state.books.concat(book)})}
+    else {console.log(`already here`)}
   }
 
   render() {
+    {console.log(this.state.books)}
     return (
       <div className="app">
           <Route 
@@ -62,6 +69,7 @@ class BooksApp extends Component {
             render= {() => (
               <SearchPage
                 shelfHandler= {this.shelfHandler}
+                bookAdder= {this.bookAdder}
               />
             )}/>
       </div>

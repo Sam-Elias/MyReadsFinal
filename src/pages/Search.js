@@ -28,6 +28,11 @@ class SearchPage extends Component {
     .catch(err => console.log(err))
   }
 
+  pushSearchBooks = (book, shelf) => {
+    book.shelf= shelf
+    this.props.bookAdder(book)
+  }
+
 
   render() {
     return (
@@ -52,6 +57,7 @@ class SearchPage extends Component {
                                          book= {book}
                                          shelfHandler= {this.props.shelfHandler}
                                          key= {book.id}
+                                         pushSearchBooks= {this.pushSearchBooks}
               />)}
             
           </ol>
