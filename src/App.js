@@ -10,7 +10,7 @@ class BooksApp extends Component {
     super(props)
 
     this.state = {
-      books: [],
+      books: []
     }
   }
 
@@ -18,10 +18,6 @@ class BooksApp extends Component {
     BooksAPI.getAll()
       .then(books => this.setState({ books: books }))
       .catch(err => { });
-  }
-
-  test = () => {
-    this.state.books.map( book => console.log(book.title)) 
   }
 
   findBook = (book) => {
@@ -43,14 +39,12 @@ class BooksApp extends Component {
             }
             return book
           })
-          console.log(newBooksArray)
           this.setState({books: newBooksArray})
         }}}
 
   bookAdder = (book) => {
     const bookAdding= this.findBook(book)
     if (!bookAdding) {this.setState({books: this.state.books.concat(book)})}
-    else {console.log(`already here`)}
   }
 
   render() {

@@ -12,16 +12,15 @@ class Book extends Component {
  
   handleChange(el) {
     this.setState({ shelf: el.target.value });
-    console.log(this.props.book.title)
-    if(!this.props.pushSearchBooks){ this.props.shelfHandler(this.props.book, el.target.value) }
-    if(this.props.pushSearchBooks){ this.props.pushSearchBooks(this.props.book, el.target.value) }
+    if(!this.props.pushSearchBooks) {this.props.shelfHandler(this.props.book, el.target.value)}
+    if(this.props.pushSearchBooks) {this.props.pushSearchBooks(this.props.book, el.target.value)}
   }
 
   render() {
-    const style = { width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ""})`};
-    const title= this.props.book.title;
-    const author= this.props.book.authors;
-    const shelf= this.props.book.shelf;
+    const style = { width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ""})`}
+    const title= this.props.book.title
+    const author= this.props.book.authors
+    const shelf= this.props.book.shelf
 
     return (
       <li>
@@ -31,7 +30,7 @@ class Book extends Component {
             <div className="book-shelf-changer">
               <select 
                 defaultValue={shelf? shelf : 'none'} 
-                onChange={shelf => {this.handleChange(shelf); console.log(shelf)}}
+                onChange={shelf => this.handleChange(shelf)}
               >
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
