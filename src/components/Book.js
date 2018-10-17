@@ -12,12 +12,12 @@ class Book extends Component {
  
   handleChange(el) {
     this.setState({ shelf: el.target.value });
+    console.log(this.props.book.title)
     this.props.shelfHandler(this.props.book.title, el.target.value);
   }
 
-
   render() {
-    const cover = `url(${this.props.book.imageLinks.thumbnail})`;
+    const style = { width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ""})`};
     const title= this.props.book.title;
     const author= this.props.book.authors;
     const shelf= this.props.book.shelf;
@@ -26,11 +26,11 @@ class Book extends Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: cover}}></div>
+            <div className="book-cover" style={ style }></div>
             <div className="book-shelf-changer">
               <select 
-                defaultValue={shelf} 
-                onChange={shelf => this.handleChange(shelf)}
+                defaultValue={shelf? shelf : 'none'} 
+                onChange={shelf => {this.handleChange(shelf); console.log(shelf)}}
               >
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
@@ -40,8 +40,8 @@ class Book extends Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{title}</div>
-          <div className="book-authors">{author}</div>
+          <div className="book-title">{title? title : 'Unknown title'}</div>
+          <div className="book-authors">{author? author : 'Unknown author'}</div>
         </div>
       </li>
     )

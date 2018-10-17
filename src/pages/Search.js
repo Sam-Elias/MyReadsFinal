@@ -2,21 +2,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from '../components/Book'
+import * as BooksAPI from '../BooksAPI'
 
 class SearchPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      searchBooks: [],
+      searchBooks: []
     }
    
   }
 
   inputHandler = (query) => {
     console.log(query.target.value)
-    this.props.getSearchBooks(query.target.value);
-    this.setState({ searchBooks: this.props.searchBooks })
+    this.getSearchBooks(query.target.value);
+  }
+  
+  getSearchBooks = (query) => {
+    BooksAPI.search(query)
+    .then(searchBooks => {if (!searchBooks) {this.setState({ searchBooks: [] })}
+                    else if (searchBooks.error) {this.setState({ searchBooks: [] })}
+                    else { this.setState ({ searchBooks: searchBooks })}
+                   })
+    .catch(err => console.log(err))
   }
 
 
@@ -39,11 +48,12 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.searchBooks.map( book => <Book
-                                   book= {book}
-                                   shelfHandler= {this.props.shelfHandler}
-                                   key= {book.id}
-                    />)}
+            {this.state.searchBooks.map( book => <Book
+                                         book= {book}
+                                         shelfHandler= {this.props.shelfHandler}
+                                         key= {book.id}
+              />)}
+            
           </ol>
         </div>
       </div>
