@@ -9,7 +9,8 @@ class SearchPage extends Component {
     super(props)
 
     this.state = {
-      searchBooks: []
+      searchBooks: [],
+      matchedBooksn:[]
     }
    
   }
@@ -22,10 +23,20 @@ class SearchPage extends Component {
   getSearchBooks = (query) => {
     BooksAPI.search(query)
     .then(searchBooks => {if (!searchBooks) {this.setState({ searchBooks: [] })}
-                    else if (searchBooks.error) {this.setState({ searchBooks: [] })}
-                    else { this.setState ({ searchBooks: searchBooks })}
-                   })
+                          else if (searchBooks.error) {this.setState({ searchBooks: [] })}
+                          else { searchBooks.map(book => {
+                                  const matchedBook = this.matchSearchBooks(book)
+                                  if (matchedBook) {
+                                    book.shelf = matchedBook.shelf
+                                    }})
+                                  this.setState({ searchBooks: searchBooks})}
+    })          
     .catch(err => console.log(err))
+  }
+
+  matchSearchBooks = (book) => {
+    const match = this.props.books.find(books => books.id === book.id)
+    return match
   }
 
   pushSearchBooks = (book, shelf) => {
