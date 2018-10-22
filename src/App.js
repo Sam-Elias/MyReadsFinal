@@ -31,6 +31,7 @@ class BooksApp extends Component {
       if (newShelf === 'none') {
         const newBooksArray = this.state.books.filter(books => books.id !== bookFound.id)
         this.setState({ books: newBooksArray })
+        BooksAPI.update(book, newShelf)
       } else {
         const newBooksArray = this.state.books.map(book => {
           if (book.id === bookFound.id) {
@@ -44,7 +45,10 @@ class BooksApp extends Component {
 
   bookAdder = (book) => {
     const bookAdding= this.findBook(book)
-    if (!bookAdding) {this.setState({books: this.state.books.concat(book)})}
+    const newShelf = book.shelf
+    if (!bookAdding) {this.setState({books: this.state.books.concat(book)})
+                      BooksAPI.update(book, newShelf)
+                     } else { this.shelfHandler(book, newShelf)}
   }
 
   render() {

@@ -15,6 +15,7 @@ class SearchPage extends Component {
   }
 
   handleInput = (query) => {
+    console.log(query.target.value)
     this.getSearchBooks(query.target.value);
   }
   
